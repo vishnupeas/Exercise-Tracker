@@ -15,11 +15,16 @@ mongoose.connect(uri, {
   useCreateIndex: true,
   useUnifiedTopology: true
 });
-
 const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
+
+const exercisesRouter = require("./routes/exercises");
+const usersRouter = require("./routes/users");
+
+app.use("/exercises", exercisesRouter);
+app.use("/users", usersRouter);
 
 //using the express to listen to the port
 const port = process.env.PORT || 5000;
