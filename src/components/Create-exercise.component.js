@@ -1,12 +1,31 @@
 import React, { Component } from "react";
+import axios from "axios";
+
 import InfiniteCalendar from "react-infinite-calendar";
 import "react-infinite-calendar/styles.css";
 
 export default class CreateExercise extends Component {
-  state = { users: [], username: "", description: "", duration: "", date: "" };
+  state = {
+    width_test: "",
+    users: [],
+    username: "",
+    description: "",
+    duration: "",
+    date: ""
+  };
+  myInput = React.createRef();
 
   componentDidMount() {
-    this.setState({ users: ["test_user"], username: "test_user" });
+    axios.get("http://localhost:5000/users/").then(response => {
+      console.log(response);
+      if (response.data.length > 0) {
+        this.setState({
+          users: response.data.map(user => user.username),
+          username: response.data[0].username
+        });
+      }
+    });
+    this.setState({ width_test: this.myInput.current.offsetWidth });
   }
 
   onChangeUserName = e => {
@@ -36,24 +55,41 @@ export default class CreateExercise extends Component {
     };
     console.log(exercise);
 
-    window.location = "/";
+    axios
+      .post("http://localhost:5000/exercises/add/", exercise)
+      .then(res => console.log(res.data));
+
+    this.setState({
+      username: ""
+    });
+
+    //window.location = "/";
   };
 
   render() {
     return (
-      <div>
-        <h3>Create New Exercise Log</h3>
+      <div
+        style={{
+          border: "1px solid black",
+          padding: "5px 20px",
+          marginBottom: "20px"
+        }}
+      >
+        <h3 className="text-primary font-weight-bold">
+          Create New Exercise Log
+        </h3>
         <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label>Username:</label>
+          <div className="form-group ">
+            <label className="font-weight-bold">Username:</label>
             <select
               ref="userInput"
               required
               className="form-control"
               value={this.state.username}
-              onChange={this.onChangeUsername}
+              onChange={this.onChangeUserName}
             >
               {this.state.users.map(function(user) {
+                console.log(user);
                 return (
                   <option key={user} value={user}>
                     {user}
@@ -63,7 +99,7 @@ export default class CreateExercise extends Component {
             </select>
           </div>
           <div className="form-group">
-            <label>Description:</label>
+            <label className="font-weight-bold">Description:</label>
             <input
               type="text"
               required
@@ -73,7 +109,7 @@ export default class CreateExercise extends Component {
             />
           </div>
           <div className="form-group">
-            <label>Duration (in minutes): </label>
+            <label className="font-weight-bold">Duration (in minutes): </label>
             <input
               type="text"
               className="form-control"
@@ -82,24 +118,35 @@ export default class CreateExercise extends Component {
             />
           </div>
           <div className="form-group">
-            <label>Date: </label>
-            <InfiniteCalendar
-              minDate={
-                new Date(2020, new Date().getMonth(), new Date().getDate())
-              }
-              onSelect={this.onChangeDate}
-              displayOptions={{
-                showMonthsForYears: false
-              }}
-            />
+            <label className="font-weight-bold">Date: </label>
+            <div ref={this.myInput}>
+              <div style={{ border: "1px solid black" }}>
+                <InfiniteCalendar
+                  minDate={
+                    new Date(2020, new Date().getMonth(), new Date().getDate())
+                  }
+                  selected={null}
+                  width={Number(this.state.width_test)}
+                  height={window.innerHeight - 250}
+                  rowHeight={70}
+                  onSelect={this.onChangeDate}
+                  displayOptions={{
+                    showMonthsForYears: false,
+                    showTodayHelper: false
+                  }}
+                />
+              </div>
+            </div>
           </div>
           <br />
-          <div className="form-group">
-            <input
+          <div className="form-group d-flex justify-content-center">
+            <button
               type="submit"
-              value="Create Exercise Log"
-              className="btn btn-primary"
-            />
+              style={{ letterSpacing: "5px", wordSpacing: "10px" }}
+              className="btn btn-primary btn-block text-uppercase"
+            >
+              Create Exercise Log
+            </button>
           </div>
         </form>
       </div>
