@@ -26,6 +26,7 @@ export default class CreateExercise extends Component {
       }
     });
     this.setState({ width_test: this.myInput.current.offsetWidth });
+    window.addEventListener("resize", this.handleResize);
   }
 
   onChangeUserName = e => {
@@ -44,6 +45,10 @@ export default class CreateExercise extends Component {
     this.setState({ date: date });
   };
 
+  handleResize = () => {
+    this.setState({ width_test: this.myInput.current.offsetWidth });
+  };
+
   onSubmit = e => {
     e.preventDefault();
 
@@ -53,7 +58,6 @@ export default class CreateExercise extends Component {
       duration: this.state.duration,
       date: this.state.date
     };
-    console.log(exercise);
 
     axios
       .post("http://localhost:5000/exercises/add/", exercise)
@@ -63,21 +67,31 @@ export default class CreateExercise extends Component {
       username: ""
     });
 
-    //window.location = "/";
+    window.location = "/";
   };
 
   render() {
     return (
       <div
         style={{
-          border: "1px solid black",
+          border: "2px solid dark",
+          borderRadius: "20px",
+          boxShadow: "1px 1px 1px #2c62c7, -1px 0px 5px #449aff",
           padding: "5px 20px",
-          marginBottom: "20px"
+          margin: "0px 0px 20px 0px"
         }}
       >
-        <h3 className="text-primary font-weight-bold">
+        <h2
+          style={{
+            margin: "10px 0px 20px 0px",
+            textTransform: "capitalize",
+            letterSpacing: "1px",
+            wordSpacing: "2px"
+          }}
+          className="text-primary font-weight-bold"
+        >
           Create New Exercise Log
-        </h3>
+        </h2>
         <form onSubmit={this.onSubmit}>
           <div className="form-group ">
             <label className="font-weight-bold">Username:</label>
@@ -89,7 +103,6 @@ export default class CreateExercise extends Component {
               onChange={this.onChangeUserName}
             >
               {this.state.users.map(function(user) {
-                console.log(user);
                 return (
                   <option key={user} value={user}>
                     {user}

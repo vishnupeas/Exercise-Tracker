@@ -4,8 +4,15 @@ import { Link } from "react-router-dom";
 export default class Navbar extends Component {
   render() {
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <Link className="navbar-brand" to="/">
+      <nav
+        style={{
+          border: "2px solid dark",
+          borderRadius: "20px",
+          boxShadow: "1px 1px 1px #2c62c7, -1px 1px 5px #449aff"
+        }}
+        className="navbar navbar-expand-lg navbar-light bg-light"
+      >
+        <Link className="navbar-brand text-primary font-weight-bold" to="/">
           Exercise-Tracker
         </Link>
         <button

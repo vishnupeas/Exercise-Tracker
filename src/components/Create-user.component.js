@@ -5,7 +5,7 @@ export default class CreateUser extends Component {
   state = { username: "" };
 
   componentDidMount() {
-    this.setState({ username: "new_username" });
+    this.setState({ username: "" });
   }
 
   onChangeUserName = e => {
@@ -33,18 +33,31 @@ export default class CreateUser extends Component {
     return (
       <div
         style={{
-          border: "1px solid black",
+          border: "2px solid dark",
+          borderRadius: "20px",
+          boxShadow: "1px 1px 1px #2c62c7, -1px 0px 5px #449aff",
           padding: "5px 20px",
-          marginBottom: "20px"
+          margin: "0px 0px 20px 0px"
         }}
       >
-        <h2 className="text-primary font-weight-bold">Create New User</h2>
+        <h2
+          style={{
+            margin: "10px 0px 20px 0px",
+            textTransform: "capitalize",
+            letterSpacing: "1px",
+            wordSpacing: "2px"
+          }}
+          className="text-primary font-weight-bold"
+        >
+          Create New User
+        </h2>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label className="font-weight-bold">Enter the Username: </label>
             <input
               type="text"
               className="form-control"
+              placeholder="Enter the Username here!!"
               value={this.state.username}
               onChange={this.onChangeUserName}
             />
