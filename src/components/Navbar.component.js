@@ -38,7 +38,7 @@ export default class Navbar extends Component {
               </Link>
             </li>
             <li
-              className="nav-item"
+              className="nav-item active"
               data-toggle="collapse"
               data-target=".navbar-collapse.show"
             >
@@ -47,7 +47,7 @@ export default class Navbar extends Component {
               </Link>
             </li>
             <li
-              className="nav-item"
+              className="nav-item active"
               data-toggle="collapse"
               data-target=".navbar-collapse.show"
             >
