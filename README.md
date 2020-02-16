@@ -7,12 +7,6 @@ is a small project extended to test the power of pure React on its own with the 
 ## Information
 The Home page contains details about the list of exercises with description , duration and date of doing the exercise. The Users are able to modify or delete the exercise on the same page itself by clicking on the icons on the right side. A new User can be created by entering just the username in the Create User page and the new exercise that is being made from the Create exercise Log is made using the username created and automatically redirects to homepage after creation of the new exercise.
 
-## Prerequisite Installations
-Jekyll official docs: [Click Here](https://jekyllrb.com/docs/installation/)
-
 ## Remote Installations
-After executing all the commands You can run your project using
-```
-bundle exec jekyll serve
-```
+if you want to run this project on your machine, then after downloading you need to install all the node module inside both the server and client side by using the `npm install` after this the project could be started using the command `npm run start` from the root directory.
 
